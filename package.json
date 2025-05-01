@@ -20,7 +20,7 @@
     "@angular/router": "^19.2.0",
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@tanstack-query-firebase/angular": "^1.0.0",
-    "@tanstack/angular-query-experimental": "^5.74.7",
+    "@tanstack/angular-query-experimental": "^5.66.4",
     "@tanstack/query-core": "^5.74.7",
     "firebase": "^11.6.0",
     "rxjs": "~7.8.0",
