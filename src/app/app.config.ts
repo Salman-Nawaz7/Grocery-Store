@@ -11,7 +11,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideDataConnect, getDataConnect } from '@angular/fire/data-connect';
 import { provideTanStackQuery, QueryClient } from '@tanstack/angular-query-experimental';
-import { connectorConfig } from '@firebasegen/default-connector';
+// import { connectorConfig } from '@firebasegen/default-connector';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 export const appConfig: ApplicationConfig = {
@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideStorage(() => getStorage()),
-    provideDataConnect(() => getDataConnect(connectorConfig)),
+    // provideDataConnect(() => getDataConnect(connectorConfig)),
 
     // TanStack Query
     provideTanStackQuery(new QueryClient()),
