@@ -10,10 +10,12 @@ export class ProductService {
   private productCollection: CollectionReference<DocumentData>;
   private categoryCollection: CollectionReference<DocumentData>;
   private requestCollection: CollectionReference<DocumentData>;
+  private aboutUsCollection: CollectionReference<DocumentData>;
   constructor(private firestore: Firestore ,private storage: Storage) {
     this.productCollection = collection(this.firestore, 'Products');
     this.requestCollection = collection(this.firestore, 'ContactRequests');
     this.categoryCollection = collection(this.firestore, 'Category');
+    this.aboutUsCollection = collection(this.firestore, 'AboutUs');
   }
   getProducts() {
     // const productsRef = collection(this.firestore, 'Products');
@@ -27,7 +29,10 @@ export class ProductService {
     // const productsRef = collection(this.firestore, 'Products');
     return collectionData(this.requestCollection, { idField: 'id' });
   }
-
+  getAboutUs() {
+    // const productsRef = collection(this.firestore, 'Products');
+    return collectionData(this.aboutUsCollection, { idField: 'id' });
+  }
   // async uploadImage(file: File): Promise<string> {
   //   const filePath = `product-images/${Date.now()}_${file.name}`;
   //   const fileRef = ref(this.storage, filePath);

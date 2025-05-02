@@ -2,34 +2,60 @@ import { AfterViewInit, Component, inject, OnInit, Renderer2, ViewEncapsulation 
 import { HeaderComponent } from "../header/header.component";
 import { HeadComponent } from "../head/head.component";
 import { FooterComponent } from "../footer/footer.component";
-import { ScriptLoaderService } from '../shared/script-loader.service';
+import { ProductService } from '../product.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 declare var yourJqueryFunction: any;
 @Component({
   selector: 'app-home',
-  imports: [HeaderComponent, HeadComponent, FooterComponent],
+  imports: [RouterModule, HeaderComponent, HeadComponent, FooterComponent , CommonModule, FormsModule],
+ 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  AboutUs: any[] = [];
+  categoryName: string="";
+  products: any[] = [];
+  allProducts: any[] = [];
+  constructor( private route: ActivatedRoute, private productService: ProductService) {}
+
+ 
   
 
-// scriptLoader=inject(ScriptLoaderService)
+  
+  
 
-// ngAfterViewInit() {
-//     this.scriptLoader.load(
-//         "../libs/jquery/jquery.js",
-//               "../libs/bootstrap/js/bootstrap.js",
-//               "../libs/jquery.countdown/jquery.countdown.js",
-//               "../libs/nivo-slider/js/jquery.nivo.slider.js",
-//               "../libs/owl.carousel/owl.carousel.min.js",
-//               "../libs/slider-range/js/tmpl.js",
-//               "../libs/slider-range/js/jquery.dependClass-0.1.js",
-//               "../libs/slider-range/js/draggable-0.1.js",
-//               "../libs/slider-range/js/jquery.slider.js",
-//               "../libs/elevatezoom/jquery.elevatezoom.js",
-//               "../js/main.js"
-//     );
-// }
-   
+  ngOnInit(): void {
+
+    this.productService.getAboutUs().subscribe((data) => {
+      this.AboutUs = data;
+      console.log('AboutUs loaded:', data);
+    });
+
+    this.route.queryParams.subscribe(params => {
+      const category = params['category'];
+      if (category) {
+        this.category(category); // your filter function
+      }
+    });
+
+    this.productService.getProducts().subscribe((data) => {
+      this.allProducts = data;
+      console.log('Products loaded:', data);
+      // category filter
+      this.products = this.allProducts.filter(p => p.category === this.categoryName);
+      console.log('Products loaded2:', this.products);
+      if(this.categoryName==""){
+        this.products=this.allProducts;
+      }
+    });
+  }
+
+  category(name: string) {
+    this.categoryName = name;
+    console.log(this.categoryName);
+  }
 }

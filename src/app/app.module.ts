@@ -12,6 +12,7 @@ import { ScriptLoaderService } from './shared/script-loader.service';
     ScriptLoaderService
 ],
   imports: [
+    
     BrowserModule,
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase),

@@ -32,50 +32,54 @@
 				<!-- Intro -->
 				<div class="section intro">
 					<div class="container">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-								<div class="intro-header">
-									<h3>Welcome To FreshMart</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-								</div>
-							</div>
-							
-							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-								<div class="intro-left">
-									<div class="intro-item">
-										<p><img src="img/intro-icon-1.png" alt="Intro Image"></p>
-										<h4>Always Fresh</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						<div class="about-us intro">
+							<div class="container" *ngIf="AboutUs.length > 0">
+								<div class="row" *ngFor="let about of AboutUs">
+									<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+										<div class="intro-header">
+											<h3>{{about.headerIntro}}</h3>
+											<p>{{about.headerDesc}}</p>
+										</div>
 									</div>
 									
-									<div class="intro-item">
-										<p><img src="img/intro-icon-3.png" alt="Intro Image"></p>
-										<h4>Super Healthy</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-								<div class="effect">
-									<a href="#">
-										<img class="img-responsive" src="img/intro-1.png" alt="Intro Image">
-									</a>
-								</div>
-							</div>
-							
-							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-								<div class="intro-right">
-									<div class="intro-item">
-										<p><img src="img/intro-icon-2.png" alt="Intro Image"></p>
-										<h4>100% Natural</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+										<div class="intro-left">
+											<div class="intro-item">
+												<p><img [src]="about.leftTopImage" alt="Intro Image"></p>
+												<h4>{{about.leftTopIntro}}</h4>
+												<p>{{about.leftTopDesc}}</p>
+											</div>
+											
+											<div class="intro-item">
+												<p><img [src]="about.leftBottumImage" alt="Intro Image"></p>
+												<h4>{{about.leftBottumIntro}}</h4>
+												<p>{{about.leftBottumDesc}}</p>
+											</div>
+										</div>
 									</div>
 									
-									<div class="intro-item">
-										<p><img src="img/intro-icon-4.png" alt="Intro Image"></p>
-										<h4>Premium Quality</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+										<div class="effect">
+											<a href="#">
+												<img class="img-responsive" [src]="about.mainImage" alt="Intro Image">
+											</a>
+										</div>
+									</div>
+									
+									<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+										<div class="intro-right">
+											<div class="intro-item">
+												<p><img [src]="about.rightTopImage" alt="Intro Image"></p>
+												<h4>{{about.rightTopIntro}}</h4>
+												<p>{{about.rightTopDesc}}</p>
+											</div>
+											
+											<div class="intro-item">
+												<p><img [src]="about.rightBottumImage" alt="Intro Image"></p>
+												<h4>{{about.rightBottumIntro}}</h4>
+												<p>{{about.rightBottumDesc}}</p>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -367,17 +371,18 @@
 						<div class="tab-content">
 							<!-- All Products -->
 							<div role="tabpanel" class="tab-pane fade in active" id="all-products">
-								<div class="products owl-theme owl-carousel">
-									<div class="product-item">
+								<div class="products owl-theme owl-carousel" >
+									<!-- <div class="product-item" *ngFor="let product of products">
+									
 										<div class="product-image">
 											<a href="/product-detail">
-												<img src="img/product/4.jpg" alt="Product Image">
+												<img [src]="product.image" alt="Product Image">
 											</a>
 										</div>
 										
 										<div class="product-title">
 											<a href="/product-detail">
-												Organic Strawberry Fruits
+												{{ product.title }}
 											</a>
 										</div>
 												
@@ -390,8 +395,8 @@
 										</div>
 												
 										<div class="product-price">
-											<span class="sale-price">$80.00</span>
-											<span class="base-price">$90.00</span>
+											<span class="sale-price">$${{ product.saleprice }}</span>
+											<span class="base-price">${{ product.baseprice }}</span>
 										</div>
 														
 										<div class="product-buttons">
@@ -407,9 +412,9 @@
 												<i class="fa fa-eye" aria-hidden="true"></i>
 											</a>
 										</div>
-									</div>
-									
-									<div class="product-item">
+									</div> -->
+								
+									<div  class="product-item" >
 										<div class="product-image">
 											<a href="/product-detail">
 												<img src="img/product/8.jpg" alt="Product Image">
