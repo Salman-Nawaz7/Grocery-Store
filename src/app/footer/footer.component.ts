@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadScriptService } from '../load-script.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-
+   constructor(
+    private loadScript: LoadScriptService
+  ) {}
+ngAfterViewInit(): void {
+  // console.log('footer script loaded');
+    // this.loadScript.loadScript();
+    // console.log('footer script loaded');
+  }
 }

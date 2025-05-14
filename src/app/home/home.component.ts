@@ -16,7 +16,7 @@ declare var yourJqueryFunction: any;
   styleUrl: './home.component.css',
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   AboutUs: any[] = [];
   categoryName: string = "";
   products: any[] = [];
@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.loadScript.loadScript();
     this.productService.getAboutUs().subscribe((data) => {
       this.AboutUs = data;
       console.log('AboutUs loaded:', data);
@@ -87,6 +88,7 @@ export class HomeComponent implements OnInit {
       // Both datasets are loaded, now load the script
       console.log('this.featureproducts loaded');
       this.loadScript.loadScript();
+      console.log('this.featureproducts loaded');
     }
   }
 }

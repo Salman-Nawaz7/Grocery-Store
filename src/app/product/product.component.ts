@@ -21,7 +21,7 @@ export class ProductComponent implements OnInit, AfterViewInit{
   allProducts: any[] = [];
   constructor(private route: ActivatedRoute, private productService: ProductService,private toastr: ToastrService, private loadScript: LoadScriptService) {}
   ngAfterViewInit(): void {
-    // this.loadScript.loadScript();
+    this.loadScript.loadScript();
   }
 
 ngOnInit(): void {

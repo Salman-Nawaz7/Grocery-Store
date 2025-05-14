@@ -176,7 +176,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   userId: string = '';
 
   ngAfterViewInit(): void {
-    this.loadScript.loadScript();
+    // this.loadScript.loadScript();
   }
   
 
