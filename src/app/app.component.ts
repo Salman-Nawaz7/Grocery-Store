@@ -15,7 +15,7 @@ export class AppComponent implements AfterViewInit{
   title = 'grocery';
 constructor(  private loadScript: LoadScriptService) {}
   ngAfterViewInit(): void {
-    // this.loadScript.loadScript();
+    this.loadScript.loadScript();
   // setTimeout(() => {
     
   // }, 500); // 5000 ms = 5 seconds
