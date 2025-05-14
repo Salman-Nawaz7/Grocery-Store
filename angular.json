@@ -27,20 +27,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-             "src/assets/libs/jquery/jquery.js",
-              "src/assets/libs/bootstrap/js/bootstrap.js",
-              "src/assets/libs/jquery.countdown/jquery.countdown.js",
-              "src/assets/libs/nivo-slider/js/jquery.nivo.slider.js",
-              "src/assets/libs/owl.carousel/owl.carousel.min.js",
-              "src/assets/libs/slider-range/js/tmpl.js",
-              "src/assets/libs/slider-range/js/jquery.dependClass-0.1.js",
-              "src/assets/libs/slider-range/js/draggable-0.1.js",
-              "src/assets/libs/slider-range/js/jquery.slider.js",
-              "src/assets/libs/elevatezoom/jquery.elevatezoom.js",
-              "src/assets/js/main.js"
+            "node_modules/jquery/dist/jquery.min.js",
+  "node_modules/owl.carousel/dist/owl.carousel.min.js"
             ]
           },
           "configurations": {
@@ -100,17 +92,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "../libs/jquery/jquery.js",
-              "../libs/bootstrap/js/bootstrap.js",
-              "../libs/jquery.countdown/jquery.countdown.js",
-              "../libs/nivo-slider/js/jquery.nivo.slider.js",
-              "../libs/owl.carousel/owl.carousel.min.js",
-              "../libs/slider-range/js/tmpl.js",
-              "../libs/slider-range/js/jquery.dependClass-0.1.js",
-              "../libs/slider-range/js/draggable-0.1.js",
-              "../libs/slider-range/js/jquery.slider.js",
-              "../libs/elevatezoom/jquery.elevatezoom.js",
-              "../js/main.js"
+             
             ]
           }
         }
