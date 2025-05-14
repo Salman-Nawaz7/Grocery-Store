@@ -1,4 +1,4 @@
-import {  Component, OnInit } from '@angular/core';
+import {  AfterViewInit, Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { HeadComponent } from "../head/head.component";
 import { FooterComponent } from "../footer/footer.component";
@@ -6,6 +6,7 @@ import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoadScriptService } from '../load-script.service';
 
 
 @Component({
@@ -14,11 +15,14 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
-export class ProductComponent implements OnInit{
+export class ProductComponent implements OnInit, AfterViewInit{
   categoryName: string="";
   products: any[] = [];
   allProducts: any[] = [];
-  constructor(private route: ActivatedRoute, private productService: ProductService,private toastr: ToastrService) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService,private toastr: ToastrService, private loadScript: LoadScriptService) {}
+  ngAfterViewInit(): void {
+    // this.loadScript.loadScript();
+  }
 
 ngOnInit(): void {
   this.route.queryParams.subscribe(params => {
@@ -27,7 +31,9 @@ ngOnInit(): void {
       this.category(category);
     }
   });
-
+  // ngAfterViewInit(): void {
+  //   // this.loadScript.loadScript();
+  // }
   this.productService.getProducts().subscribe((data) => {
     this.allProducts = data;
 
