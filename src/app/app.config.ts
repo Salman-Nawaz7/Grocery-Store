@@ -13,9 +13,13 @@ import { provideDataConnect, getDataConnect } from '@angular/fire/data-connect';
 import { provideTanStackQuery, QueryClient } from '@tanstack/angular-query-experimental';
 // import { connectorConfig } from '@firebasegen/default-connector';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(), // Required for toastr animations
+    provideToastr(),
     // ✅ Only ONE Firebase initialization
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     {provide:FIREBASE_OPTIONS, useValue:environment.firebase},

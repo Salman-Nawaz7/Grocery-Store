@@ -26,67 +26,74 @@
                 <div class="col-md-5 col-sm-5 col-xs-12">
                     <div class="topbar-right d-flex justify-content-end">
                         <!-- My Account -->
-                        <div class="dropdown account">
-                            <div class="dropdown-toggle" data-toggle="dropdown">
-                                My Account
-                            </div>
-                            <div class="dropdown-menu">		
-                                @if(changebuttons=="loginbutton"){
-                                    <div class="item">
-                                        <a href="/user-login" title="Log in to your customer account"><i class="fa fa-sign-in"></i>Login</a>
-                                    </div>
-                                    <div class="item">
-                                        <a href="/user-register" title="Register Account"><i class="fa fa-user"></i>Register</a>
-                                    </div>
-                                }
-                                @if(changebuttons=="myaccountbutton"){
-                                    <div class="item">
-                                        <a href="/myaccount" title="Log in to your customer account"><i class="fa fa-cog"></i>My Account</a>
-                                    </div>
-                                    <div class="item">
-                                        <a href="#" title="My Wishlists"><i class="fa fa-heart"></i>My Wishlists</a>
-                                    </div>
-                                    <div class="item">
-                                        <a href="" (click)="logout()" title="Logout from your account"><i class="fa fa-sign-out"></i>Logout</a>
-                                    </div>
-                                }	
-                                
-                                
-                            </div>
-                        </div>
+                        
+                        <!-- My Account -->
+<div class="dropdown account">
+  <div class="dropdown-toggle" (click)="toggleDropdown('account')">
+    My Account
+  </div>
+  <div class="dropdown-menu" [class.show]="isDropdownOpen['account']">
+    <!-- If user is not logged in -->
+    <div *ngIf="changebuttons === 'loginbutton'">
+      <div class="item">
+        <a routerLink="/user-login" title="Log in to your customer account"><i class="fa fa-sign-in"></i>Login</a>
+      </div>
+      <div class="item">
+        <a routerLink="/user-register" title="Register Account"><i class="fa fa-user"></i>Register</a>
+      </div>
+    </div>
+
+    <!-- If user is logged in -->
+    <div *ngIf="changebuttons === 'myaccountbutton'">
+      <div class="item">
+        <a routerLink="/profile" title="Go to your account"><i class="fa fa-cog"></i>My Account</a>
+      </div>
+      <div class="item">
+        <a  title="My Wishlists"><i class="fa fa-heart"></i>My Wishlists</a>
+      </div>
+      <div class="item">
+        <a  (click)="logout()" title="Logout from your account"><i class="fa fa-sign-out"></i>Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
                         
                         <!-- Language -->
-                        <div class="dropdown language">
-                            <div class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="img/language-en.jpg" alt="Language English">
-                            </div>
-                            <div class="dropdown-menu">
-                                <div class="item">
-                                    <a href="#" title="Language English"><img src="img/language-en.jpg" alt="Language English"> English</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#" title="Language French"><img src="img/language-fr.jpg" alt="Language French"> French</a>
-                                </div>
-                            </div>
-                        </div>
+                      <div class="dropdown language" (click)="toggleDropdown('language')">
+  <div class="dropdown-toggle">
+    <img src="img/language-en.jpg" alt="Language English">
+  </div>
+  <div class="dropdown-menu" [class.show]="isDropdownOpen['language']">
+    <div class="item">
+      <a  title="Language English"><img src="img/language-en.jpg" alt="Language English"> English</a>
+    </div>
+    <div class="item">
+      <a  title="Language French"><img src="img/language-fr.jpg" alt="Language French"> French</a>
+    </div>
+  </div>
+</div>
+
                         
                         <!-- Currency -->
-                        <div class="dropdown currency">
-                            <div class="dropdown-toggle" data-toggle="dropdown">
-                                USD
-                            </div>
-                            <div class="dropdown-menu">
-                                <div class="item">
-                                    <a href="#" title="USD">USD</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#" title="EUR">EUR</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#" title="GBP">GBP</a>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="dropdown currency" (click)="toggleDropdown('currency')">
+  <div class="dropdown-toggle">
+    USD
+  </div>
+  <div class="dropdown-menu"  [class.show]="isDropdownOpen['currency']">
+    <div class="item">
+      <a  title="USD">USD</a>
+    </div>
+    <div class="item">
+      <a  title="EUR">EUR</a>
+    </div>
+    <div class="item">
+      <a  title="GBP">GBP</a>
+    </div>
+  </div>
+</div>
+
                     </div>
                 </div>
             </div>
@@ -115,7 +122,7 @@
                 <!-- Logo -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="logo">
-                        <a href="/home" >
+                        <a routerLink="/home" >
                             <img class="img-responsive" src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -124,69 +131,53 @@
                 </div>
                 
                 <!-- Cart -->
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"  *ngIf="isLoggedIn">
                     <div class="block-cart dropdown">
                         <div class="cart-title">
                             <i class="fa fa-shopping-basket"></i>
-                            <span class="cart-count">2</span>
+                            <span class="cart-count">{{ cartItems.length || 0 }}</span>
                         </div>
                         
                         <div class="dropdown-content">
                             <div class="cart-content">
                                 <table>
                                     <tbody>
-                                        <tr>
+                                        <tr *ngFor="let item of cartItems | slice:0:2">
                                             <td class="product-image">
-                                                <a href="/product">
-                                                    <img src="img/product/7.jpg" alt="Product">
+                                                <a [routerLink]="['/product-detail']" [queryParams]="{ id: item.productId }">
+                                                    <img [src]="item.image" alt="Product">
                                                 </a>
                                             </td>
                                             <td>
                                                 <div class="product-name">
-                                                    <a href="/product">Organic Strawberry Fruits</a>
+                                                    <a [routerLink]="['/product-detail']" [queryParams]="{ id: item.productId }" class="product-name">{{ item.name }}</a>
                                                 </div>
                                                 <div>	
-                                                    2 x <span class="product-price">$28.98</span>
+                                                    {{ item.quantity }} x <span class="product-price">{{ item.price }}</span>
                                                 </div>
                                             </td>
                                             <td class="action">
-                                                <a class="remove" href="#">
+                                                <a class="remove" (click)="removeFromCart(item.id)" >
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                         </tr>
                                         
-                                        <tr>
-                                            <td class="product-image">
-                                                <a href="/product">
-                                                    <img src="img/product/6.jpg" alt="Product">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <div class="product-name">
-                                                    <a href="/product">Organic Strawberry</a>
-                                                </div>
-                                                <div>	
-                                                    1 x <span class="product-price">$35.00</span>
-                                                </div>
-                                            </td>
-                                            <td class="action">
-                                                <a class="remove" href="#">
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        
                                         
                                         <tr class="total">
                                             <td>Total:</td>
-                                            <td colspan="2">$92.96</td>
+                                            <td colspan="2">{{ getTotalProductsPrice() | currency }}</td>
                                         </tr>
                                         
                                         <tr>
-                                            <td colspan="3">
-                                                <div class="cart-button">
-                                                    <a class="btn btn-primary" href="/product-cart" title="View Cart">View Cart</a>
-                                                    <a class="btn btn-primary" href="/product-checkout" title="Checkout">Checkout</a>
+                                            <td colspan="3" >
+                                                <div class="cart-button" >
+                                                    <a class="btn btn-primary" routerLink="/product-cart" title="View Cart">View Cart</a>
+<a class="btn btn-primary" routerLink="/product-checkout" title="Checkout">Checkout</a>
+<a class="btn btn-primary" routerLink="/user-order" title="Checkout">View Order</a>
+                                                    
+                                                    
                                                 </div>
                                             </td>
                                         </tr>
@@ -204,16 +195,20 @@
     <div id="main-menu">
         <ul class="menu">
             <li class="dropdown">
-                <a href="/home" title="Homepage">Home</a>
+                <a routerLink='/home' >Home</a>
+                <!-- <a routerLink="/home"><button>Home</button></a> -->
+                <!-- <button (click)="home()">Home</button> -->
             </li>
             
             <li class="dropdown">
-                <a href="/product" title="Product">Product</a>
+                <!-- <a routerLink="/product"><button>Product</button></a> -->
+                <!-- <button (click)="product()">Home</button> -->
+                <a routerLink='/product' >Product</a>
                 <div class="dropdown-menu">
                     <ul>
                         <li class="has-image" *ngFor="let category of allCategories">
                             <img [src]="category.image" alt="Product Category Image">
-                            <a  href="/product?category={{category.title}}" [title]=" category.title">{{ category.title }}</a>
+                            <a  routerLink="/product?category={{category.title}}" [title]=" category.title">{{ category.title }}</a>
                         </li>
                         
                     </ul>
@@ -222,17 +217,17 @@
             
            
             
-            <li class="dropdown">
-                <a href="/blog">Blog</a>
+            <!-- <li class="dropdown">
+                <a routerLink="/blog">Blog</a>
                 
+            </li> -->
+            
+            <li>
+                <a routerLink="/about-us">About Us</a>
             </li>
             
             <li>
-                <a href="/about-us">About Us</a>
-            </li>
-            
-            <li>
-                <a href="/contact-us">Contact</a>
+                <a routerLink="/contact-us">Contact</a>
             </li>
         </ul>
     </div>

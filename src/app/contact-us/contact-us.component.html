@@ -181,9 +181,13 @@
 	  </div>
   
 	  <div class="form-group text-center">
-		<button type="submit" class="btn btn-primary" [disabled]="requestForm.invalid">
-		  Send Message
-		</button>
+		<button
+  type="submit"
+  class="btn btn-primary"
+  [disabled]="requestForm.invalid || isSubmitting">
+  {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+</button>
+
 	  </div>
 	</form>
   </div>
@@ -267,7 +271,7 @@
 			</div>
 		</div>
 	</div>
-
+<div id="toastr-container"></div>
 	<!-- Vendor JS -->
 	<script src="libs/jquery/jquery.js"></script>
 	<script src="libs/bootstrap/js/bootstrap.js"></script>

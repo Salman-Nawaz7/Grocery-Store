@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BlogComponent } from './blog/blog.component';
 import { ProductComponent } from './product/product.component';
@@ -13,6 +13,8 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 import { Page404Component } from './page-404/page-404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { MyaccountComponent } from './myaccount/myaccount.component';
+import { UserOrderComponent } from './user-order/user-order.component';
+
 
 export const routes: Routes = [
     {path:'',redirectTo:'home',pathMatch:'full'},
@@ -29,6 +31,7 @@ export const routes: Routes = [
     {path:'about-us',component:AboutUsComponent},
     {path:'page-404',component:Page404Component},
     {path:'forgotpassword',component:ForgotpasswordComponent},
-    {path:'myaccount',component:MyaccountComponent}
+    {path:'myaccount',component:MyaccountComponent},
+    {path:'user-order',component:UserOrderComponent}
     
 ];

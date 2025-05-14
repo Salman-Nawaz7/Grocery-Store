@@ -39,28 +39,29 @@
 								</thead>
 								
 								<tbody>
-									<tr>
+									<tr *ngFor="let item of cartItems">
 										<td class="product-remove">
-											<a title="Remove this item" class="remove" href="#">
+											<a title="Remove this item" class="remove" (click)="removeFromCart(item.id)">
 												<i class="fa fa-times"></i>
 											</a>
 										</td>
 										<td>
-											<a href="/product-detail">
-												<img width="80" alt="Product Image" class="img-responsive" src="img/product/19.jpg">
+											<a [routerLink]="['/product-detail']" [queryParams]="{ id: item.productId }">
+												<!-- <img width="80" alt="Product Image" class="img-responsive" src="img/product/19.jpg"> -->
+												<img class="img-responsive" [src]="item.image" alt="Product Image" width="80">
 											</a>
 										</td>
 										<td>
-											<a href="/product-detail" class="product-name">Organic Strawberry Fruits</a>
+											<a [routerLink]="['/product-detail']" [queryParams]="{ id: item.productId }" class="product-name">{{ item.name }}</a>
 										</td>
 										<td class="text-center">
-											$265
+											{{ item.price | currency }}
 										</td>
 										<td>
 											<div class="product-quantity">
 												<div class="qty">
 													<div class="input-group">
-														<input type="text" name="qty" value="1" data-min="1">
+														<input type="text" name="qty" [value]='item.quantity' data-min="1">
 														<span class="adjust-qty">
 															<span class="adjust-btn plus">+</span>
 															<span class="adjust-btn minus">-</span>
@@ -70,51 +71,18 @@
 											</div>
 										</td>
 										<td class="text-center">
-											$265
+											{{ item.price * item.quantity | currency }}
 										</td>
 									</tr>
 									
-									<tr>
-										<td class="product-remove">
-											<a title="Remove this item" class="remove" href="#">
-												<i class="fa fa-times"></i>
-											</a>
-										</td>
-										<td>
-											<a href="/product-detail">
-												<img width="80" alt="Product Image" class="img-responsive" src="img/product/31.jpg">
-											</a>
-										</td>
-										<td>
-											<a href="/product-detail" class="product-name">Organic Strawberry Fruits</a>
-										</td>
-										<td class="text-center">
-											$150
-										</td>
-										<td>
-											<div class="product-quantity">
-												<div class="qty">
-													<div class="input-group">
-														<input type="text" name="qty" value="2" data-min="1">
-														<span class="adjust-qty">
-															<span class="adjust-btn plus">+</span>
-															<span class="adjust-btn minus">-</span>
-														</span>
-													</div>
-												</div>
-											</div>
-										</td>
-										<td class="text-center">
-											$300
-										</td>
-									</tr>
+									
 								</tbody>
 								
 								<tfoot>
 									<tr class="cart-total">
 										<td rowspan="3" colspan="3"></td>
 										<td colspan="2" class="text-right">Total products</td>
-										<td colspan="1" class="text-center">$565</td>
+										<td colspan="1" class="text-center">{{ getTotalProductsPrice() | currency }}</td>
 									</tr>
 									<tr class="cart-total">
 										<td colspan="2" class="text-right">Total shipping</td>
@@ -122,10 +90,13 @@
 									</tr>
 									<tr class="cart-total">
 										<td colspan="2" class="total text-right">Total</td>
-										<td colspan="1" class="total text-center">$575</td>
+										<td colspan="1" class="total text-center">{{ getTotalProductsPrice()+10 | currency }}</td>
 									</tr>
 								</tfoot>
 							</table>
+							<div *ngIf="cartItems.length > 0">
+    <button (click)="clearCart()">Clear Cart</button>
+  </div>
 						</div>
 						
 						<div class="checkout-btn">

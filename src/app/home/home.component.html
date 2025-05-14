@@ -97,61 +97,72 @@
 					
 					<div class="block-content">
 						<div class="products owl-theme owl-carousel">
-							<div class="product-item">
-								<div class="row">
-									<div class="col-md-6 col-xs-12 product-left">
-										<div class="product-info">
-											<div class="product-title">
-												<a href="/product-detail">
-													Organic Strawberry Fruits
-												</a>
-											</div>
-											
-											<div class="product-rating">
-												<div class="star on"></div>
-												<div class="star on"></div>
-												<div class="star on "></div>
-												<div class="star on"></div>
-												<div class="star"></div>
-											</div>
-											
-											<div class="product-price">
-												<span class="sale-price">$35.00</span>
-												<span class="base-price">$55.00</span>
-											</div>
-											
-											<div class="product-intro">Lorem ipsum dolor sit amet, consectetuer adipiscing elit....</div>
-											
-											<div class="product-countdown" data-date="2018/10/30">
-											</div>
-											
-											<div class="product-buttons">
-												<a class="add-to-cart" href="#">
-													<i class="fa fa-shopping-basket" aria-hidden="true"></i>
-												</a>
-												
-												<a class="add-wishlist" href="#">
-													<i class="fa fa-heart" aria-hidden="true"></i>												
-												</a>
-												
-												<a class="quickview" href="#">
-													<i class="fa fa-eye" aria-hidden="true"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-6 col-xs-12 product-right">
-										<div class="product-image">
-											<a href="/product-detail">
-												<img src="img/product/18.jpg" alt="Product Image">
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
+						
+							<div class="product-item" *ngFor="let product of featureproducts">
+  <div class="row">
+    <!-- Left Side: Product Info -->
+    <div class="col-md-6 col-xs-12 product-left">
+      <div class="product-info">
+        <!-- Product Title -->
+        <div class="product-title">
+          <a [routerLink]="['/product-detail']" [queryParams]="{ id: product.id }">
+            {{ product.title }}
+          </a>
+        </div>
+
+        <!-- Static Rating (customize if needed) -->
+        <div class="product-rating">
+          <div class="star on"></div>
+          <div class="star on"></div>
+          <div class="star on"></div>
+          <div class="star on"></div>
+          <div class="star"></div>
+        </div>
+
+        <!-- Product Price -->
+        <div class="product-price">
+          <span class="sale-price">${{ product.saleprice }}</span>
+          <span class="base-price" *ngIf="product.baseprice && product.baseprice !== product.saleprice">
+            ${{ product.baseprice }}
+          </span>
+        </div>
+
+        <!-- Product Description -->
+        <div class="product-intro">
+          {{ product.description }}
+        </div>
+
+        <!-- Countdown (optional - static or use external library) -->
+        <!-- <div class="product-countdown" data-date="2025/12/31"></div> -->
+
+        <!-- Buttons -->
+        <!-- <div class="product-buttons">
+          <a class="add-to-cart" href="#" >
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+          </a>
+          <a class="add-wishlist" href="#">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+          </a>
+          <a class="quickview" href="#">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </a>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Right Side: Product Image -->
+    <div class="col-md-6 col-xs-12 product-right">
+      <div class="product-image">
+        <a [routerLink]="['/product-detail']" [queryParams]="{ id: product.id }">
+          <img [src]="product.images[0]" alt="{{ product.title }}" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 								
-							<div class="product-item">
+							<!-- <div class="product-item">
 								<div class="row">
 									<div class="col-md-6 col-xs-12 product-left">
 										<div class="product-info">
@@ -311,7 +322,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -372,49 +383,55 @@
 							<!-- All Products -->
 							<div role="tabpanel" class="tab-pane fade in active" id="all-products">
 								<div class="products owl-theme owl-carousel" >
-									<!-- <div class="product-item" *ngFor="let product of products">
-									
-										<div class="product-image">
-											<a href="/product-detail">
-												<img [src]="product.image" alt="Product Image">
-											</a>
-										</div>
-										
-										<div class="product-title">
-											<a href="/product-detail">
-												{{ product.title }}
-											</a>
-										</div>
-												
-										<div class="product-rating">
-											<div class="star on"></div>
-											<div class="star on"></div>
-											<div class="star on "></div>
-											<div class="star on"></div>
-											<div class="star"></div>
-										</div>
-												
-										<div class="product-price">
-											<span class="sale-price">$${{ product.saleprice }}</span>
-											<span class="base-price">${{ product.baseprice }}</span>
-										</div>
-														
-										<div class="product-buttons">
-											<a class="add-to-cart" href="#">
-												<i class="fa fa-shopping-basket" aria-hidden="true"></i>
-											</a>
-											
-											<a class="add-wishlist" href="#">
-												<i class="fa fa-heart" aria-hidden="true"></i>												
-											</a>
-											
-											<a class="quickview" href="#">
-												<i class="fa fa-eye" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div> -->
+								<div class="product-item" *ngFor="let product of TopProducts">
+  <div class="product-image">
+    <a [routerLink]="['/product-detail', product.id]">
+      <img [src]="product.images[0]" alt="Product Image">
+    </a>
+  </div>
+
+  <div class="product-title">
+    <a [routerLink]="['/product-detail', product.id]">
+      {{ product.title }}
+    </a>
+  </div>
+
+  <div class="product-rating">
+    <div class="star on"></div>
+    <div class="star on"></div>
+    <div class="star on"></div>
+    <div class="star on"></div>
+    <div class="star"></div>
+  </div>
+
+  <div class="product-price">
+    <span class="sale-price">$ {{ product.saleprice }}</span>
+    <span class="base-price line-through text-gray-400">${{ product.baseprice }}</span>
+  </div>
+
+  <!-- New: Order Count -->
+  <!-- <div class="product-order-count text-sm text-gray-600 mt-1">
+    Ordered: {{ product.orderCount }} times
+  </div>
+
+  <div class="product-buttons mt-2">
+    <a class="add-to-cart" href="#">
+      <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+    </a>
+
+    <a class="add-wishlist" href="#">
+      <i class="fa fa-heart" aria-hidden="true"></i>
+    </a>
+
+    <a class="quickview" href="#">
+      <i class="fa fa-eye" aria-hidden="true"></i>
+    </a>
+  </div> -->
+</div>
+
+
 								
-									<div  class="product-item" >
+									<!-- <div  class="product-item" >
 										<div class="product-image">
 											<a href="/product-detail">
 												<img src="img/product/8.jpg" alt="Product Image">
@@ -656,7 +673,7 @@
 												<i class="fa fa-eye" aria-hidden="true"></i>
 											</a>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 							
@@ -2709,7 +2726,7 @@
 				
 				
 				<!-- Product - Category -->
-				<div class="section product-category">
+				<!-- <div class="section product-category">
 					<div class="block-title">
 						<div class="sub-title">Discover Our Products</div>
 						<h2 class="title">Shop By <span>Cagegories</span></h2>
@@ -2790,7 +2807,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				
 				
 				<!-- Partners -->
@@ -2811,7 +2828,7 @@
 				
 				
 				<!-- Latest News -->
-				<div class="section latest-news">
+				<!-- <div class="section latest-news">
 					<div class="block-title">
 						<div class="sub-title">From Our Blog</div>
 						<h2 class="title">Latest <span>News</span></h2>
@@ -2860,7 +2877,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			
 			

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-user-login',
@@ -16,36 +17,47 @@ import { FormsModule } from '@angular/forms';
 export class UserLoginComponent implements OnInit {
   email: string = "";
   password: string = "";
-  
+  loginError: string = "";
   private auth =inject(AuthService);
-
+constructor( private productService: ProductService) {}
   
   
   userdata: string = JSON.stringify(JSON.parse(localStorage.getItem('User data') || '[]'));
   token: string = JSON.stringify(JSON.parse(localStorage.getItem('token') || '[]'));
   router=inject(Router);
 
- login() {
-  
-      if (this.email == "" || this.password == "") { 
-        alert("Enter login email and pasword");
-        return;
-      }else{
-        
-             this.auth.login(this.email,this.password);
-             
 
-         this.email='';
-         this.password='';
-         
-      }
-    
-
+login() {
+  if (this.email == "" || this.password == "") { 
+    alert("Enter login email and password");
+    return;
   }
 
-  googlesignin(){
-this.auth.googlesign();
-  }
+  this.auth.login(this.email, this.password).then(() => {
+    const userData = JSON.parse(localStorage.getItem('User data') || '{}');
+    const pending = JSON.parse(localStorage.getItem('pendingCartProduct') || 'null');
+
+    if (pending && userData?.uid) {
+      this.productService.addToCart(userData.uid, pending.product, pending.quantity).then(() => {
+        localStorage.removeItem('pendingCartProduct'); // Clear after use
+        this.router.navigate(['/product-cart']);
+      });
+    } else {
+      // Navigate to returnUrl if set
+      const returnUrl = this.router.parseUrl(this.router.url).queryParams['returnUrl'] || '/home';
+      this.router.navigate([returnUrl]);
+    }
+  }).catch(error => {
+    this.loginError = 'Login failed. Please try again.';
+    console.error(error);
+  });
+}
+
+
+
+        googlesignin(){
+      this.auth.googlesign();
+        }
 
 
   ngOnInit(): void {

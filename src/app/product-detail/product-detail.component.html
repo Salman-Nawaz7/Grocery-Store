@@ -25,35 +25,53 @@
 					</div>
 				</div>
 			
-			
+				<div *ngIf="product">
+					<!-- <h1>{{ product.title }}</h1>
+					<img [src]="product.images[0]" alt="Product Image">
+					<p>{{ product.description }}</p>
+					<p><strong>Price:</strong> ${{ product.saleprice }}</p>
+					<p><strong>Base Price:</strong> ${{ product.baseprice }}</p>
+					<div class="thumb-images owl-theme owl-carousel">
+					<img *ngFor="let img of product.images" class="img-responsive" [src]="img" alt="Product Image">
+					</div>
+				   -->
+				  
 				<div class="container">
 					<div class="product-detail">
 						<div class="products-block layout-5">
 							<div class="product-item">
 								<div class="product-title">
-									Organic Strawberry Fruits
+									{{product.title}}
 								</div>
 											
 								<div class="row">
 									<div class="product-left col-md-4 col-sm-4 col-xs-12">
 										<div class="product-image horizontal">
-											<div class="main-image">
-												<img class="img-responsive" src="img/product/2.jpg" alt="Product Image">
-											</div>
-											<div class="thumb-images owl-theme owl-carousel">
-												<img class="img-responsive" src="img/product/33.jpg" alt="Product Image">
-												<img class="img-responsive" src="img/product/3.jpg" alt="Product Image">
-												<img class="img-responsive" src="img/product/7.jpg" alt="Product Image">
-												<img class="img-responsive" src="img/product/30.jpg" alt="Product Image">
-											</div>
+										  <div class="main-image">
+											<img class="img-responsive" [src]="selectedImage || product.images[0]" alt="Product Image">
+										  </div>
+										 
+										  <div class="thumb-images owl-theme owl-carousel">
+											<img
+  *ngFor="let img of product.images"
+  class="img-responsive "
+  [src]="img"
+  alt="Thumbnail"
+  width="80"
+  (click)="selectedImage = img"
+  [class.selected]="img === selectedImage"
+/>
+
+										  </div>
 										</div>
-									</div>
+									  </div>
+									  
 									
 									<div class="product-right col-md-5 col-sm-4 col-xs-12">
 										<div class="product-info">
 											<div class="product-price">
-												<span class="sale-price">$80.00</span>
-												<span class="base-price">$90.00</span>
+												<span class="sale-price">${{product.baseprice}}</span>
+												<span class="base-price">${{product.saleprice}}</span>
 											</div>
 											
 											<div class="product-stock">
@@ -61,51 +79,10 @@
 											</div>
 											
 											<div class="product-short-description">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sapien urna, commodo ut molestie vitae, feugiat tincidunt ligula. Nam gravida nulla in convallis condimentum.
+												{{product.description}}
 											</div>
 											
-											<div class="product-variants border-bottom">
-												<div class="product-variants-item">
-													<span class="control-label">Size :</span>
-													<select>
-														<option value="1" title="S">S</option>
-														<option value="2" title="M">M</option>
-														<option value="3" title="L">L</option>
-														<option value="4" title="One size">One size</option>
-													</select>
-												</div>
-
-												<div class="product-variants-item">
-													<span class="control-label">Color :</span>
-
-													<ul>
-														<li>
-															<input class="input-color" type="radio" value="1">
-															<span class="color" style="background-color: #E84C3D"></span>
-														</li>
-														<li>
-															<input class="input-color" type="radio" value="2">
-															<span class="color" style="background-color: #5D9CEC"></span>
-														</li>
-														<li>
-															<input class="input-color" type="radio" value="3">
-															<span class="color" style="background-color: #A0D468"></span>
-														</li>
-														<li>
-															<input class="input-color" type="radio" value="4">
-															<span class="color" style="background-color: #F1C40F"></span>
-														</li>
-														<li>
-															<input class="input-color" type="radio" value="5">
-															<span class="color" style="background-color: #964B00"></span>
-														</li>
-														<li>
-															<input class="input-color" type="radio" value="6">
-															<span class="color" style="background-color: #FCCACD"></span>
-														</li>
-													</ul>
-												</div>
-											</div>
+											
 											
 											<div class="product-add-to-cart border-bottom">
 												<div class="product-quantity">
@@ -122,10 +99,10 @@
 												</div>
 												
 												<div class="product-buttons">
-													<a class="add-to-cart" href="#">
+													<button class="add-to-cart" (click)="addToCart(product)">
 														<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 														<span>Add To Cart</span>
-													</a>
+													</button>
 													
 													<a class="add-wishlist" href="#">
 														<i class="fa fa-heart" aria-hidden="true"></i>												
@@ -174,9 +151,8 @@
 												</div>
 												<div class="item">
 													<span class="control-label">Categories :</span>
-													<a href="#" title="Vegetables">Vegetables,</a>
-													<a href="#" title="Fruits">Fruits,</a>
-													<a href="#" title="Apple">Apple</a>
+													<a href="/product?category={{product.category}}" title="Vegetables">{{product.category}}</a>
+													
 												</div>
 												<div class="item">
 													<span class="control-label">Tags :</span>
@@ -320,7 +296,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div></div>
 						</div>
 					</div>
 					
@@ -562,7 +538,7 @@
 				</div>
 			</div>
 		</div>
-			
+			<div id="toastr-container"></div>
 		<!-- Vendor JS -->
 		<script src="libs/jquery/jquery.js"></script>
 		<script src="libs/bootstrap/js/bootstrap.js"></script>

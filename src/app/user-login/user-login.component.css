@@ -1,0 +1,10 @@
+.google-btn {
+  transition: background-color 0.2s;
+}
+
+.google-btn:hover {
+  background-color: #54815e !important; /* Light green */
+}
+.google-btn {
+    background-color: #75bd84 !important; /* Light green */
+  }

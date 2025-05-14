@@ -1,0 +1,28 @@
+.dropdown-menu {
+  display: none;
+}
+.dropdown-menu.show {
+  display: block;
+}
+.cart-button {
+  display: flex;
+  flex-wrap: wrap; /* allow wrapping if space is tight */
+  justify-content: center;
+  gap: 10px;
+}
+
+.cart-button a {
+  flex: 1 1 30%; /* grow, shrink, basis to allow responsiveness */
+  min-width: 80px;
+  max-width: 100%;
+  text-align: center;
+}
+@media (max-width: 576px) {
+  .cart-button {
+    flex-direction: column;
+  }
+
+  .cart-button a {
+    width: 100%;
+  }
+}

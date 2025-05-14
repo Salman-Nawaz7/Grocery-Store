@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import { FooterComponent } from "../footer/footer.component";
 import { HeadComponent } from "../head/head.component";
 import { HeaderComponent } from "../header/header.component";
 import { AuthService } from '../shared/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoadScriptService } from '../load-script.service';
 
 @Component({
   selector: 'app-user-register',
@@ -12,13 +13,15 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './user-register.component.html',
   styleUrl: './user-register.component.css'
 })
-export class UserRegisterComponent {
+export class UserRegisterComponent implements AfterViewInit{
   email: string = "";
   password: string = "";
   confirm_password: string = "";
   
   private auth =inject(AuthService);
-  
+  constructor(
+    private loadScript: LoadScriptService
+  ) {}
 
  register() {
    
@@ -43,5 +46,8 @@ export class UserRegisterComponent {
       }
     
 
+  }
+  ngAfterViewInit(): void {
+    this.loadScript.loadScript();
   }
 }
