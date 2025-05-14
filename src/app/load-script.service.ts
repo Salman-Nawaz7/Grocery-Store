@@ -16,7 +16,7 @@ export class LoadScriptService {
     document.body.appendChild(script);
   });
 }
-
+// new change 
 loadScript(): void {
    this.initScript('js/main.js').then(() => {console.log('main.js loaded');}).catch(err => {console.error(err);console.log('main.js not loaded');});
   //  this.initScript('libs/jquery/jquery.js').then(() => {console.log('jquery.js loaded');}).catch(err => {console.error(err);console.log('jquery.js not loaded');});
