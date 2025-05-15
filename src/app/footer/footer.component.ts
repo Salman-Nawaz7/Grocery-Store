@@ -13,7 +13,6 @@ export class FooterComponent {
   ) {}
 ngAfterViewInit(): void {
   console.log('footer script loaded');
-    // this.loadScript.loadScript();
-    console.log('footer script loaded');
+    this.loadScript.loadScript();
   }
 }

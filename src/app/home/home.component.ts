@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoadScriptService } from '../load-script.service';
-import { FeatureProductComponent } from "../feature-product/feature-product.component";
+import { FooterHomeComponent } from "../footer-home/footer-home.component";
 
 declare var yourJqueryFunction: any;
 
@@ -24,10 +24,10 @@ declare var yourJqueryFunction: any;
     RouterModule,
     HeaderComponent,
     HeadComponent,
-    FooterComponent,
     CommonModule,
-    FormsModule
-  ],
+    FormsModule,
+    FooterHomeComponent
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None
