@@ -33,17 +33,8 @@
             ],
             "scripts": [
             "node_modules/jquery/dist/jquery.min.js",
-  "node_modules/owl.carousel/dist/owl.carousel.min.js",
-  "public/js/main.js",
-"public/libs/bootstrap/js/bootstrap.js",
-"public/libs/jquery.countdown/jquery.countdown.js",
-"public/libs/nivo-slider/js/jquery.nivo.slider.js",
-"public/libs/owl.carousel/owl.carousel.min.js",
-"public/libs/slider-range/js/tmpl.js",
-"public/libs/slider-range/js/jquery.dependClass-0.1.js",
-"public/libs/slider-range/js/draggable-0.1.js",
-"public/libs/slider-range/js/jquery.slider.js",
-"public/libs/elevatezoom/jquery.elevatezoom.js"
+  "node_modules/owl.carousel/dist/owl.carousel.min.js"
+
   
             ]
           },

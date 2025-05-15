@@ -1,19 +1,35 @@
-import { AfterViewInit, Component, OnInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ViewEncapsulation
+} from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { HeadComponent } from "../head/head.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoadScriptService } from '../load-script.service';
+import { FeatureProductComponent } from "../feature-product/feature-product.component";
+
 declare var yourJqueryFunction: any;
 
 @Component({
   selector: 'app-home',
-  imports: [RouterModule, HeaderComponent, HeadComponent, FooterComponent, CommonModule, FormsModule],
+  standalone: true,
+  imports: [
+    RouterModule,
+    HeaderComponent,
+    HeadComponent,
+    FooterComponent,
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit, AfterViewInit {
@@ -24,71 +40,109 @@ export class HomeComponent implements OnInit, AfterViewInit {
   featureproducts: any[] = [];
   TopProducts: any[] = [];
 
+  private scriptsLoaded = false;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private loadScript: LoadScriptService,
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef to trigger change detection
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    // this.loadScript.loadScript();
-    this.productService.getAboutUs().subscribe((data) => {
-      this.AboutUs = data;
-      console.log('AboutUs loaded:', data);
-    });
-
-    this.productService.getTopOrderedProducts(5).then(products => {
-      console.log('Top ordered products:', products);
-      this.TopProducts = products;
-      this.checkAndLoadScript(); // Check if both datasets are loaded
-    });
+    this.loadAboutUs();
+    this.loadTopProducts();
+    this.loadAllProducts();
+    this.loadFeaturedProducts();
 
     this.route.queryParams.subscribe(params => {
       const category = params['category'];
       if (category) {
-        this.category(category); // your filter function
+        this.category(category);
+        this.filterProducts();
       }
     });
-
-    this.productService.getProducts().subscribe((data) => {
-      this.allProducts = data;
-      console.log('Products loaded:', data);
-      // category filter
-      this.products = this.allProducts.filter(p => p.category === this.categoryName);
-      console.log('Products loaded2:', this.products);
-      if (this.categoryName == "") {
-        this.products = this.allProducts;
-      }
-    });
-
-    this.loadFeaturedProducts();
+     this.confirmPageLoaded().then(() => {
+    console.log('Page fully loaded!');
+    // Safe to run your jQuery plugins or scripts here
+  });
   }
 
   ngAfterViewInit(): void {
-    // Trigger change detection after all data is loaded
     this.cdr.detectChanges();
-    this.checkAndLoadScript(); // Check if both datasets are loaded
+    this.checkAndLoadScript();
+     if(this.scriptsLoaded==false){
+this.loadScript.loadScript();
+    }
   }
 
-  category(name: string) {
-    this.categoryName = name;
-    console.log(this.categoryName);
+  private loadAboutUs() {
+    this.productService.getAboutUs().subscribe((data) => {
+      this.AboutUs = data;
+      console.log('AboutUs loaded:', data);
+    });
+  }
+
+  private async loadTopProducts() {
+    this.TopProducts = await this.productService.getTopOrderedProducts(5);
+    console.log('Top ordered products:', this.TopProducts);
+    this.checkAndLoadScript();
+  }
+
+  private loadAllProducts() {
+    this.productService.getProducts().subscribe((data) => {
+      this.allProducts = data;
+      console.log('All products loaded:', data);
+      this.filterProducts();
+    });
   }
 
   async loadFeaturedProducts() {
     this.featureproducts = await this.productService.getFeaturedProducts();
-    console.log('this.featureproducts', this.featureproducts);
-    this.checkAndLoadScript(); // Check if both datasets are loaded
+    console.log('Featured products:', this.featureproducts);
+    this.checkAndLoadScript();
   }
 
-  // Check if both featureproducts and TopProducts are loaded before loading the script
-  checkAndLoadScript() {
-    if (this.featureproducts.length > 0 && this.TopProducts.length > 0) {
-      // Both datasets are loaded, now load the script
-      console.log('this.featureproducts loaded');
-      this.loadScript.loadScript();
-      console.log('this.featureproducts loaded');
-    }
+  category(name: string) {
+    this.categoryName = name;
+    console.log('Category set to:', this.categoryName);
+    this.filterProducts();
   }
+
+  private filterProducts() {
+    if (this.categoryName) {
+      this.products = this.allProducts.filter(p => p.category === this.categoryName);
+    } else {
+      this.products = this.allProducts;
+    }
+    console.log('Filtered products:', this.products);
+  }
+
+  private checkAndLoadScript() {
+    if(this.scriptsLoaded==true || this.scriptsLoaded==false){
+if (this.featureproducts.length > 0 && this.TopProducts.length > 0 ) {
+      this.scriptsLoaded = true;
+      console.log('All required data loaded. Loading script...');
+      this.loadScript.loadScript();
+    }
+    }
+    
+  }
+
+  confirmPageLoaded(): Promise<void> {
+  return new Promise((resolve) => {
+    if (document.readyState === 'complete') {
+      this.scriptsLoaded=true;
+      // Page already loaded
+      resolve();
+    } else {
+      // Wait for load event
+      this.scriptsLoaded=false;
+      window.addEventListener('load', () => {
+        resolve();
+      });
+    }
+  });
+}
+
 }

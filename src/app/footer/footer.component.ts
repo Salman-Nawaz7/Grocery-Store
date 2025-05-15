@@ -12,8 +12,8 @@ export class FooterComponent {
     private loadScript: LoadScriptService
   ) {}
 ngAfterViewInit(): void {
-  // console.log('footer script loaded');
+  console.log('footer script loaded');
     // this.loadScript.loadScript();
-    // console.log('footer script loaded');
+    console.log('footer script loaded');
   }
 }
