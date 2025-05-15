@@ -14,7 +14,6 @@ import { Page404Component } from './page-404/page-404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { UserOrderComponent } from './user-order/user-order.component';
-import { FeatureProductComponent } from './feature-product/feature-product.component';
 
 
 export const routes: Routes = [
@@ -33,7 +32,6 @@ export const routes: Routes = [
     {path:'page-404',component:Page404Component},
     {path:'forgotpassword',component:ForgotpasswordComponent},
     {path:'myaccount',component:MyaccountComponent},
-    {path:'user-order',component:UserOrderComponent},
-    {path:'feature-product',component:FeatureProductComponent}
+    {path:'user-order',component:UserOrderComponent}
     
 ];
