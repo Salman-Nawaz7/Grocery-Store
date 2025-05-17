@@ -122,17 +122,11 @@ this.loadScript.loadScript();
 if (this.featureproducts.length > 0 && this.TopProducts.length > 0 ) {
       this.scriptsLoaded = true;
       console.log('All required data loaded. Loading script...');
-      // Wait for Angular to finish rendering DOM, then run jQuery
-      setTimeout(() => {
-        console.log('All required data loaded. Initializing Owl Carousel...');
-        this.loadScript.loadScript();  // This must initialize .owl-carousel
-      }, 1000); // Delay to ensure DOM is rendered
+      this.loadScript.loadScript();
     }
     }
     
   }
-
-  
 
   confirmPageLoaded(): Promise<void> {
   return new Promise((resolve) => {

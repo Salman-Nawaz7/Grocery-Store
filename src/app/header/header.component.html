@@ -208,7 +208,10 @@
                     <ul>
                         <li class="has-image" *ngFor="let category of allCategories">
                             <img [src]="category.image" alt="Product Category Image">
-                            <a  routerLink="/product?category={{category.title}}" [title]=" category.title">{{ category.title }}</a>
+                            <a [routerLink]="['/product']" [queryParams]="{ category: category.title }" [title]="category.title">
+  {{ category.title }}
+</a>
+
                         </li>
                         
                     </ul>

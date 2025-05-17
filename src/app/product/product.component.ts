@@ -24,30 +24,54 @@ export class ProductComponent implements OnInit, AfterViewInit{
     // this.loadScript.loadScript();
   }
 
-ngOnInit(): void {
+  ngOnInit(): void {
   this.route.queryParams.subscribe(params => {
     const category = params['category'];
     if (category) {
-      this.category(category);
+      this.category(category); // Sets categoryName
     }
-  });
-  // ngAfterViewInit(): void {
-  //   // this.loadScript.loadScript();
-  // }
-  this.productService.getProducts().subscribe((data) => {
-    this.allProducts = data;
 
-    // ✅ Filter by correct field names: stock and status
-    this.products = this.allProducts.filter(product => {
-      const inCategory = this.categoryName ? product.category === this.categoryName : true;
-      const isActive = product.status?.toLowerCase() === 'active';
-      const inStock = product.stock > 0;  // ✅ Corrected here
-      return inCategory && isActive && inStock;
+    // Fetch and filter products AFTER categoryName is set
+    this.productService.getProducts().subscribe((data) => {
+      this.allProducts = data;
+
+      this.products = this.allProducts.filter(product => {
+        const inCategory = this.categoryName ? product.category === this.categoryName : true;
+        const isActive = product.status?.toLowerCase() === 'active';
+        const inStock = product.stock > 0;
+        return inCategory && isActive && inStock;
+      });
+
+      console.log('Filtered Products:', this.products);
     });
-
-    console.log('Filtered Products:', this.products);
   });
 }
+
+
+// ngOnInit(): void {
+//   this.route.queryParams.subscribe(params => {
+//     const category = params['category'];
+//     if (category) {
+//       this.category(category);
+//     }
+//   });
+//   // ngAfterViewInit(): void {
+//   //   // this.loadScript.loadScript();
+//   // }
+//   this.productService.getProducts().subscribe((data) => {
+//     this.allProducts = data;
+
+//     // ✅ Filter by correct field names: stock and status
+//     this.products = this.allProducts.filter(product => {
+//       const inCategory = this.categoryName ? product.category === this.categoryName : true;
+//       const isActive = product.status?.toLowerCase() === 'active';
+//       const inStock = product.stock > 0;  // ✅ Corrected here
+//       return inCategory && isActive && inStock;
+//     });
+
+//     console.log('Filtered Products:', this.products);
+//   });
+// }
 addToCart(product: any) {
   console.log('Product sent to addToCart:', this.products);
   const userData = JSON.parse(localStorage.getItem('User data') || '{}');
